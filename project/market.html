@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Prices - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <i class="fas fa-leaf logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Smart Agriculture</h1>
+                    <span class="subtitle">Assistant</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link" data-text="Home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="weather.html" class="nav-link" data-text="Weather"><i class="fas fa-cloud-sun"></i> <span>Weather</span></a></li>
+                    <li><a href="irrigation.html" class="nav-link" data-text="Irrigation"><i class="fas fa-tint"></i> <span>Irrigation</span></a></li>
+                    <li><a href="crop-management.html" class="nav-link" data-text="Crops"><i class="fas fa-seedling"></i> <span>Crops</span></a></li>
+                    <li><a href="disease.html" class="nav-link" data-text="Disease"><i class="fas fa-bug"></i> <span>Disease</span></a></li>
+                    <li><a href="market.html" class="nav-link active" data-text="Market"><i class="fas fa-chart-line"></i> <span>Market</span></a></li>
+                    <li><a href="store.html" class="nav-link" data-text="Store"><i class="fas fa-shopping-cart"></i> <span>Store</span></a></li>
+                </ul>
+                <div class="language-selector">
+                    <button class="language-btn">
+                        <i class="fas fa-globe"></i>
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul class="language-dropdown">
+                        <li><a href="#" data-lang="en" class="active"><i class="fas fa-check"></i> English</a></li>
+                        <li><a href="#" data-lang="ne"><span class="flag">🇳🇵</span> नेपाली</a></li>
+                        <li><a href="#" data-lang="hi"><span class="flag">🇮🇳</span> हिंदी</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <section class="section">
+            <div class="section-header">
+                <h2>Market Price Tracker</h2>
+                <p class="section-subtitle">Monitor real-time agricultural market prices and trends</p>
+            </div>
+
+            <div class="market-dashboard">
+                <div class="market-overview">
+                    <div class="market-filters">
+                        <div class="filter-group">
+                            <label>Market Location</label>
+                            <select class="market-select">
+                                <option value="kathmandu">Kathmandu</option>
+                                <option value="pokhara">Pokhara</option>
+                                <option value="bharatpur">Bharatpur</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Category</label>
+                            <select class="category-select">
+                                <option value="all">All Categories</option>
+                                <option value="vegetables">Vegetables</option>
+                                <option value="fruits">Fruits</option>
+                                <option value="grains">Grains</option>
+                            </select>
+                        </div>
+                        <button class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh Prices</button>
+                    </div>
+
+                    <div class="price-trends">
+                        <div class="trend-card rising">
+                            <div class="trend-header">
+                                <h4>Highest Price Increase</h4>
+                                <span class="trend-badge up">+15%</span>
+                            </div>
+                            <div class="trend-content">
+                                <h3>Tomatoes</h3>
+                                <p>Current: Rs. 85/kg</p>
+                                <p>Previous: Rs. 74/kg</p>
+                            </div>
+                        </div>
+                        <div class="trend-card falling">
+                            <div class="trend-header">
+                                <h4>Highest Price Decrease</h4>
+                                <span class="trend-badge down">-12%</span>
+                            </div>
+                            <div class="trend-content">
+                                <h3>Potatoes</h3>
+                                <p>Current: Rs. 45/kg</p>
+                                <p>Previous: Rs. 51/kg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-table-container">
+                    <div class="table-header">
+                        <h3>Current Market Prices</h3>
+                        <div class="table-actions">
+                            <button class="action-btn"><i class="fas fa-download"></i> Export</button>
+                            <div class="search-box">
+                                <input type="text" placeholder="Search products...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Unit</th>
+                                    <th>Min Price</th>
+                                    <th>Max Price</th>
+                                    <th>Avg Price</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tomatoes</td>
+                                    <td>Vegetables</td>
+                                    <td>kg</td>
+                                    <td>Rs. 80</td>
+                                    <td>Rs. 90</td>
+                                    <td>Rs. 85</td>
+                                    <td class="price-change up">+15%</td>
+                                </tr>
+                                <tr>
+                                    <td>Potatoes</td>
+                                    <td>Vegetables</td>
+                                    <td>kg</td>
+                                    <td>Rs. 40</td>
+                                    <td>Rs. 50</td>
+                                    <td>Rs. 45</td>
+                                    <td class="price-change down">-12%</td>
+                                </tr>
+                                <tr>
+                                    <td>Rice</td>
+                                    <td>Grains</td>
+                                    <td>kg</td>
+                                    <td>Rs. 60</td>
+                                    <td>Rs. 75</td>
+                                    <td>Rs. 68</td>
+                                    <td class="price-change up">+5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="market-analysis">
+                    <div class="analysis-card">
+                        <h3>Price Trends Analysis</h3>
+                        <div class="chart-container">
+                            <!-- Add price trends chart here -->
+                        </div>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>Market Insights</h3>
+                        <div class="insights-list">
+                            <div class="insight-item">
+                                <i class="fas fa-arrow-trend-up"></i>
+                                <div class="insight-content">
+                                    <h4>Price Increase Expected</h4>
+                                    <p>Tomato prices likely to rise further due to reduced supply</p>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <i class="fas fa-truck"></i>
+                                <div class="insight-content">
+                                    <h4>Supply Update</h4>
+                                    <p>New shipment of potatoes arriving tomorrow</p>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <i class="fas fa-chart-pie"></i>
+                                <div class="insight-content">
+                                    <h4>Market Share</h4>
+                                    <p>Local vegetables dominate 65% of market share</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="export-markets">
+                    <h3>Export Market Opportunities</h3>
+                    <div class="export-grid">
+                        <div class="export-card">
+                            <div class="country-flag">🇮🇳</div>
+                            <div class="export-info">
+                                <h4>India</h4>
+                                <p>High demand for organic vegetables</p>
+                                <ul class="export-details">
+                                    <li><i class="fas fa-check"></i> Easy transportation</li>
+                                    <li><i class="fas fa-check"></i> Competitive prices</li>
+                                    <li><i class="fas fa-check"></i> Growing market</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="export-card">
+                            <div class="country-flag">🇧🇩</div>
+                            <div class="export-info">
+                                <h4>Bangladesh</h4>
+                                <p>Market for fresh fruits</p>
+                                <ul class="export-details">
+                                    <li><i class="fas fa-check"></i> High profit margin</li>
+                                    <li><i class="fas fa-check"></i> Regular demand</li>
+                                    <li><i class="fas fa-check"></i> Established routes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                    <li><a href="store.html">Store</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> contact@smartag.com</p>
+                <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Smart Agriculture Assistant. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 

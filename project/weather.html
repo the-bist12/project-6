@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="weather.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- OpenLayers CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <i class="fas fa-leaf logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Smart Agriculture</h1>
+                    <span class="subtitle">Assistant</span>
+                </div>
+            </div>
+            <button class="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link" data-text="Home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="weather.html" class="nav-link active" data-text="Weather"><i class="fas fa-cloud-sun"></i> <span>Weather</span></a></li>
+                    <li><a href="irrigation.html" class="nav-link" data-text="Irrigation"><i class="fas fa-tint"></i> <span>Irrigation</span></a></li>
+                    <li><a href="crop-management.html" class="nav-link" data-text="Crops"><i class="fas fa-seedling"></i> <span>Crops</span></a></li>
+                    <li><a href="disease.html" class="nav-link" data-text="Disease"><i class="fas fa-bug"></i> <span>Disease</span></a></li>
+                    <li><a href="market.html" class="nav-link" data-text="Market"><i class="fas fa-chart-line"></i> <span>Market</span></a></li>
+                    <li><a href="store.html" class="nav-link" data-text="Store"><i class="fas fa-shopping-cart"></i> <span>Store</span></a></li>
+                </ul>
+                <div class="language-selector">
+                    <button class="language-btn">
+                        <i class="fas fa-globe"></i>
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul class="language-dropdown">
+                        <li><a href="#" data-lang="en" class="active"><i class="fas fa-check"></i> English</a></li>
+                        <li><a href="#" data-lang="ne"><span class="flag">🇳🇵</span> नेपाली</a></li>
+                        <li><a href="#" data-lang="hi"><span class="flag">🇮🇳</span> हिंदी</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content weather-page">
+        <!-- Location Selection -->
+        <div class="location-bar">
+            <div class="location-container">
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" placeholder="Search for a location..." id="location-input">
+                    <button class="location-btn" title="Use current location">
+                        <i class="fas fa-crosshairs"></i>
+                    </button>
+                </div>
+                <div class="last-updated">
+                    Last updated: <span id="update-time">Just now</span>
+                    <button class="refresh-btn" title="Refresh weather data">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Weather Section -->
+        <section class="weather-section">
+            <div class="weather-container">
+                <div class="current-weather">
+                    <div class="weather-header">
+                        <div class="location-info">
+                            <h2>Loading location...</h2>
+                            <span class="last-updated">Updating...</span>
+                        </div>
+                        <div class="temperature-display">
+                            <i class="weather-icon fas fa-sun fa-beat-fade"></i>
+                            <span class="temp">--°C</span>
+                        </div>
+                        <div class="weather-description">
+                            <p>Loading weather data...</p>
+                            <span>Feels like --°C</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Add Sun Position Section -->
+                    <div class="sun-position">
+                        <div class="sun-arc">
+                            <div class="sun-indicator"></div>
+                        </div>
+                        <div class="sun-times">
+                            <div class="sunrise">
+                                <i class="fas fa-sunrise"></i>
+                                <span>--:--</span>
+                            </div>
+                            <div class="sunset">
+                                <i class="fas fa-sunset"></i>
+                                <span>--:--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-details">
+                        <div class="weather-detail-item">
+                            <i class="fas fa-tint fa-pulse"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Humidity</span>
+                                <span class="detail-value">--%</span>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item">
+                            <i class="fas fa-wind fa-shake"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Wind Speed</span>
+                                <span class="detail-value">-- km/h</span>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item wind-direction">
+                            <i class="fas fa-compass fa-spin"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Wind Direction</span>
+                                <div class="direction-indicator">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                    <span class="direction-text">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item">
+                            <i class="fas fa-sun fa-beat-fade"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">UV Index</span>
+                                <div class="uv-indicator">
+                                    <div class="uv-value">--</div>
+                                    <div class="uv-bar">
+                                        <div class="uv-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Air Quality Section -->
+                    <div class="air-quality">
+                        <h3>Air Quality</h3>
+                        <div class="aqi-display">
+                            <div class="aqi-value">
+                                <span class="value">--</span>
+                                <span class="label">AQI</span>
+                            </div>
+                            <div class="aqi-scale">
+                                <div class="scale-bar">
+                                    <div class="scale-fill"></div>
+                                </div>
+                                <div class="scale-labels">
+                                    <span>Good</span>
+                                    <span>Moderate</span>
+                                    <span>Poor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forecast Section -->
+        <section class="weather-section forecast">
+            <div class="section-container">
+                <h2>7-Day Forecast</h2>
+                <div class="forecast-slider">
+                    <div class="forecast-card">
+                        <div class="day">Today</div>
+                        <i class="fas fa-sun fa-beat-fade"></i>
+                        <div class="temp-range">
+                            <span class="high">32°</span>
+                            <span class="separator">/</span>
+                            <span class="low">24°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 65%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 30%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Tue</div>
+                        <i class="fas fa-cloud-sun fa-beat-fade"></i>
+                        <div class="temp-range">
+                            <span class="high">30°</span>
+                            <span class="separator">/</span>
+                            <span class="low">22°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 70%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 45%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Wed</div>
+                        <i class="fas fa-cloud-showers-heavy fa-shake"></i>
+                        <div class="temp-range">
+                            <span class="high">28°</span>
+                            <span class="separator">/</span>
+                            <span class="low">21°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 80%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 75%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Thu</div>
+                        <i class="fas fa-cloud-rain fa-shake"></i>
+                        <div class="temp-range">
+                            <span class="high">27°</span>
+                            <span class="separator">/</span>
+                            <span class="low">20°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 85%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 80%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Fri</div>
+                        <i class="fas fa-cloud-sun fa-beat-fade"></i>
+                        <div class="temp-range">
+                            <span class="high">29°</span>
+                            <span class="separator">/</span>
+                            <span class="low">21°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 75%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 40%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Sat</div>
+                        <i class="fas fa-sun fa-beat-fade"></i>
+                        <div class="temp-range">
+                            <span class="high">31°</span>
+                            <span class="separator">/</span>
+                            <span class="low">23°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 60%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 20%</span>
+                        </div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="day">Sun</div>
+                        <i class="fas fa-sun fa-beat-fade"></i>
+                        <div class="temp-range">
+                            <span class="high">33°</span>
+                            <span class="separator">/</span>
+                            <span class="low">24°</span>
+                        </div>
+                        <div class="forecast-details">
+                            <span class="humidity"><i class="fas fa-tint"></i> 55%</span>
+                            <span class="precipitation"><i class="fas fa-cloud-rain"></i> 10%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agricultural Weather Metrics -->
+        <section class="weather-section agri-metrics">
+            <div class="section-container">
+                <h2>Agricultural Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Soil Temperature</h3>
+                        <div class="metric-value">22°C</div>
+                        <div class="metric-depth">at 10cm depth</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Growing Degree Days</h3>
+                        <div class="metric-value">1250</div>
+                        <div class="metric-info">Base 10°C</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Evapotranspiration</h3>
+                        <div class="metric-value">4.2 mm</div>
+                        <div class="metric-info">Daily rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Rainfall Accumulation</h3>
+                        <div class="metric-value">25 mm</div>
+                        <div class="metric-info">Last 7 days</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Maps -->
+        <section class="weather-section weather-maps">
+            <div class="section-container">
+                <h2>Weather Maps</h2>
+                <div class="map-controls">
+                    <button class="map-btn active" data-map="temperature">Temperature</button>
+                    <button class="map-btn" data-map="precipitation">Precipitation</button>
+                    <button class="map-btn" data-map="clouds">Cloud Cover</button>
+                    <button class="map-btn" data-map="wind">Wind Speed</button>
+                </div>
+                <div class="map-container">
+                    <div id="weather-map"></div>
+                    <div class="map-overlay">
+                        <div class="map-legend">
+                            <h4>Legend</h4>
+                            <div class="legend-content"></div>
+                        </div>
+                        <div class="map-timestamp">
+                            Last updated: <span class="timestamp">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Alerts -->
+        <section class="weather-section alerts">
+            <div class="section-container">
+                <h2>Weather Alerts</h2>
+                <div class="alerts-container">
+                    <div class="alert-card warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="alert-content">
+                            <h3>Frost Warning</h3>
+                            <p>Expected overnight temperatures below 0°C. Protect sensitive crops.</p>
+                            <span class="alert-time">Valid until: 6:00 AM tomorrow</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Agriculture Road, Kathmandu, Nepal</li>
+                    <li><i class="fas fa-envelope"></i> info@smartagri.com</li>
+                    <li><i class="fas fa-phone"></i> +977-1-4567890</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="newsletter">
+                    <h4>Subscribe to Weather Alerts</h4>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-links">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-service">Terms of Service</a>
+                <a href="/faq">FAQ</a>
+                <a href="/about-us">About Us</a>
+            </div>
+            <p>&copy; 2024 Smart Agriculture Assistant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="weather.js"></script>
+</body>
+</html> 
